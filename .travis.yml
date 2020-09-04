@@ -37,6 +37,7 @@ jobs:
         - echo 'Deploying container...'
           && export CONTAINER_TAG="${TRAVIS_COMMIT:0:7}"
           && echo "$DOCKER_PASSWORD" | docker login -u="$DOCKER_USERNAME" --password-stdin quay.io
+          && docker pull $DOCKER_REMOTE_REPO:$CONTAINER_TAG
           && docker tag $DOCKER_REMOTE_REPO:$CONTAINER_TAG $DOCKER_REMOTE_REPO:latest
           && docker push $DOCKER_REMOTE_REPO:latest
           && echo 'Deployment succeeded!'
